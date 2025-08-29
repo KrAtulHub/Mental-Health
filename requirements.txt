@@ -1,0 +1,11 @@
+flask
+pandas
+numpy
+joblib
+
+# Optional for training/plots/SHAP in notebooks
+matplotlib
+seaborn
+plotly
+shap
+

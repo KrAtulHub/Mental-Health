@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mental Health Risk Predictor</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', Arial, sans-serif; margin: 0; background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%); }
+        .container { max-width: 700px; margin: 40px auto; background: #fff; padding: 30px 40px; border-radius: 16px; box-shadow: 0 4px 24px rgba(44,62,80,0.12); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 24px; font-weight: 700; }
+        form { margin-top: 10px; }
+        label { display: block; margin-top: 16px; font-weight: 500; color: #34495e; }
+        select, input[type=number], input[type=radio] { width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #b2bec3; border-radius: 6px; font-size: 1em; background: #f7f7f7; }
+        input[type=radio] { width: auto; margin-right: 8px; }
+        button { margin-top: 28px; padding: 12px 28px; background: linear-gradient(90deg, #2980b9 0%, #6dd5fa 100%); color: #fff; border: none; border-radius: 6px; font-size: 1.1em; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(44,62,80,0.08); transition: background 0.2s; }
+        button:hover { background: linear-gradient(90deg, #3498db 0%, #2980b9 100%); }
+        .result { margin-top: 24px; padding: 18px; border-radius: 8px; font-size: 1.1em; text-align: center; }
+        .high { background: #ffdddd; color: #c0392b; border: 1px solid #c0392b; }
+        .medium { background: #fff3cd; color: #856404; border: 1px solid #856404; }
+        .low { background: #ddffdd; color: #27ae60; border: 1px solid #27ae60; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #721c24; }
+        .disclaimer { margin-top: 32px; font-size: 0.98em; color: #888; text-align: center; }
+        @media (max-width: 800px) {
+            .container { padding: 18px 8px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🧠 Mental Health Risk Predictor in Tech Industry</h1>
+    <form method="post">
+        <label>Age: <input type="number" name="Age" min="18" max="70" required></label>
+        <label>Gender:
+            <select name="Gender">
+                {% for opt in gender_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Country:
+            <select name="Country">
+                {% for opt in country_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>State:
+            <select name="State">
+                {% for opt in state_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Are you self-employed?
+            {% for opt in self_employed_options %}<input type="radio" name="Self_employed" value="{{ opt }}" required> {{ opt }} {% endfor %}
+        </label>
+        <label>Family history of mental illness?
+            {% for opt in yes_no_options %}<input type="radio" name="Family_history" value="{{ opt }}" required> {{ opt }} {% endfor %}
+        </label>
+        <label>Work interfere:
+            <select name="Work_interfere">
+                {% for opt in work_interfere_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Number of employees:
+            <select name="No_employees">
+                {% for opt in no_employees_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Remote work?
+            {% for opt in yes_no_options %}<input type="radio" name="Remote_work" value="{{ opt }}" required> {{ opt }} {% endfor %}
+        </label>
+        <label>Tech company?
+            {% for opt in yes_no_options %}<input type="radio" name="Tech_company" value="{{ opt }}" required> {{ opt }} {% endfor %}
+        </label>
+        <label>Benefits:
+            <select name="Benefits">
+                {% for opt in benefits_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Care options:
+            <select name="Care_options">
+                {% for opt in care_options_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Wellness program:
+            <select name="Wellness_program">
+                {% for opt in wellness_program_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Seek help:
+            <select name="Seek_help">
+                {% for opt in seek_help_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Anonymity:
+            <select name="Anonymity">
+                {% for opt in anonymity_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Leave:
+            <select name="Leave">
+                {% for opt in leave_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Mental health consequence:
+            <select name="Mental_health_consequence">
+                {% for opt in mh_consequence_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Physical health consequence:
+            <select name="Phys_health_consequence">
+                {% for opt in ph_consequence_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Coworkers:
+            <select name="Coworkers">
+                {% for opt in coworkers_supervisor_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Supervisor:
+            <select name="Supervisor">
+                {% for opt in coworkers_supervisor_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Mental health interview:
+            <select name="Mental_health_interview">
+                {% for opt in interview_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Physical health interview:
+            <select name="Phys_health_interview">
+                {% for opt in interview_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Mental vs physical:
+            <select name="Mental_vs_physical">
+                {% for opt in mental_vs_physical_options %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Observed consequence?
+            {% for opt in observed_consequence_options %}<input type="radio" name="Observed_consequence" value="{{ opt }}" required> {{ opt }} {% endfor %}
+        </label>
+        <button type="submit">Predict Mental Health Risk</button>
+    </form>
+    {% if prediction %}
+        <div class="result {{ risk_level|lower }}">
+            <strong>{{ prediction }}</strong>
+        </div>
+    {% endif %}
+    {% if error %}
+        <div class="result error">
+            <strong>{{ error }}</strong>
+        </div>
+    {% endif %}
+    <div class="disclaimer">
+        <em>Disclaimer: This tool is for informational purposes only and does not constitute medical advice. Always consult with a qualified healthcare professional for any health concerns.</em>
+    </div>
+</div>
+</body>
+</html>
+
+
